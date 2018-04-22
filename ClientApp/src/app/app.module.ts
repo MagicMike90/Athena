@@ -1,23 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { AboutComponent } from './about/about.component';
 
 import { CoreModule } from './core/core.module';
 import { QuizModule } from './quiz/quiz.module';
 
-
-import { PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser, APP_BASE_HREF } from '@angular/common';
+import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
+import { LoginModule } from './login/login.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
+    AboutComponent,
+    PagenotfoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -26,10 +29,12 @@ import { isPlatformBrowser, APP_BASE_HREF } from '@angular/common';
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
-      { path: '**', redirectTo: 'home' }
+      { path: 'about', component: AboutComponent },
+      { path: '**', component: PagenotfoundComponent }
     ]),
     CoreModule,
-    QuizModule
+    QuizModule,
+    LoginModule
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' }

@@ -19,7 +19,6 @@ export class QuizComponent implements OnInit {
     this.quiz = <Quiz>{};
 
     const id = +this.activatedRoute.snapshot.params['id'];
-    console.log(id);
     if (id) {
       quizService.getQuiz(id).subscribe(quiz => this.quiz = quiz);
     } else {
