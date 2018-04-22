@@ -12,9 +12,10 @@ const httpOptions = {
 
 @Injectable()
 export class QuizService {
-  private quizzesByDateUrl = 'api/quiz/Latest/';  // URL to web api
-  private quizzesByTitleUrl = 'api/quiz/ByTitle/';  // URL to web api
-  private quizzesByRandomUrl = 'api/quiz/Random/';  // URL to web api
+  private quizzesByDateUrl = 'api/quiz/Latest';  // URL to web api
+  private quizzesByTitleUrl = 'api/quiz/ByTitle';  // URL to web api
+  private quizzesByRandomUrl = 'api/quiz/Random';  // URL to web api
+  private quizUrl = 'api/quiz';  // URL to web api
   private quizzez = [];
 
 
@@ -23,6 +24,7 @@ export class QuizService {
     this.quizzesByDateUrl = `${origin}${this.quizzesByDateUrl}`;
     this.quizzesByTitleUrl = `${origin}${this.quizzesByTitleUrl}`;
     this.quizzesByRandomUrl = `${origin}${this.quizzesByRandomUrl}`;
+    this.quizUrl = `${origin}${this.quizUrl}`;
   }
 
   /** GET quizzes from the server */
@@ -65,7 +67,7 @@ export class QuizService {
 
   /** GET quiz by id. Will 404 if id not found */
   getQuiz(id: number): Observable<Quiz> {
-    const url = `${this.quizzesByDateUrl}/${id}`;
+    const url = `${this.quizUrl}/${id}`;
     return this.http.get<Quiz>(url).pipe(
       tap(_ => console.log(`fetched quiz id=${id}`)),
       catchError(this.handleError<Quiz>(`getQuiz id=${id}`))
