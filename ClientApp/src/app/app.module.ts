@@ -8,13 +8,12 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 
 import { CoreModule } from './core/core.module';
-import { QuizListComponent } from './quiz/quiz-list/quiz-list.component';
+import { QuizModule } from './quiz/quiz.module';
 
 @NgModule({
   declarations: [
   AppComponent,
     HomeComponent,
-    QuizListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -23,7 +22,8 @@ import { QuizListComponent } from './quiz/quiz-list/quiz-list.component';
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' }
     ]),
-    CoreModule
+    CoreModule,
+    QuizModule
   ],
   providers: [],
   bootstrap: [AppComponent]
