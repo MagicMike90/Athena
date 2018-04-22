@@ -11,7 +11,7 @@ namespace Athena.Controllers {
         /// <summary>
         /// Retrieves the Question with the given {id}
         /// </summary>
-        /// <param name="id">The ID of an existing Question</param>
+        /// <param name="id">The id of an existing Question</param>
         /// <returns>the Question with the given {id}</returns>
         [HttpGet ("{id}")]
         public IActionResult Get (int id) {
@@ -39,7 +39,7 @@ namespace Athena.Controllers {
         /// <summary>
         /// Deletes the Question with the given {id} from the Database
         /// </summary>
-        /// <param name="id">The ID of an existing Question</param>
+        /// <param name="id">The id of an existing Question</param>
         [HttpDelete ("{id}")]
         public IActionResult Delete (int id) {
             throw new NotImplementedException ();
@@ -53,7 +53,7 @@ namespace Athena.Controllers {
 
             // add a first sample question
             sampleQuestions.Add (new QuestionViewModel () {
-                Id = 1,
+                id = 1,
                     QuizId = quizId,
                     Text = "What do you value most in your life?",
                     CreatedDate = DateTime.Now,
@@ -63,7 +63,7 @@ namespace Athena.Controllers {
             // add a bunch of other sample questions
             for (int i = 2; i <= 5; i++) {
                 sampleQuestions.Add (new QuestionViewModel () {
-                    Id = i,
+                    id = i,
                         QuizId = quizId,
                         Text = String.Format ("Sample Question {0}", i),
                         CreatedDate = DateTime.Now,

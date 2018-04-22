@@ -15,7 +15,7 @@ namespace Athena.Controllers
         /// GET: api/quiz/{id}
         /// Retrieves the Quiz with the given {id}
         /// </summary>
-        /// <param name="id">The ID of an existing Quiz</param>
+        /// <param name="id">The id of an existing Quiz</param>
         /// <returns>the Quiz with the given {id}</returns>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
@@ -23,7 +23,7 @@ namespace Athena.Controllers
             // create a sample quiz to match the given request
             var v = new QuizViewModel()
             {
-                Id = id,
+                id = id,
                 Title = String.Format("Sample quiz with id {0}", id),
                 Description = "Not a real quiz: it's just a sample!",
                 CreatedDate = DateTime.Now,
@@ -62,7 +62,7 @@ namespace Athena.Controllers
         /// <summary>
         /// Deletes the Quiz with the given {id} from the Database
         /// </summary>
-        /// <param name="id">The ID of an existing Test</param>
+        /// <param name="id">The id of an existing Test</param>
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -85,7 +85,7 @@ namespace Athena.Controllers
             // add a first sample quiz
             sampleQuizzes.Add(new QuizViewModel()
             {
-                Id = 1,
+                id = 1,
                 Title = "Which Shingeki No Kyojin character are you?",
                 Description = "Anime-related personality test",
                 CreatedDate = DateTime.Now,
@@ -97,7 +97,7 @@ namespace Athena.Controllers
             {
                 sampleQuizzes.Add(new QuizViewModel()
                 {
-                    Id = i,
+                    id = i,
                     Title = String.Format("Sample Quiz {0}", i),
                     Description = "This is a sample quiz",
                     CreatedDate = DateTime.Now,

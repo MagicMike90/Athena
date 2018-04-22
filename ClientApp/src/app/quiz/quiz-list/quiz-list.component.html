@@ -1,3 +1,9 @@
-<p>
-  quiz-list works!
-</p>
+<h2>{{title}}</h2>
+<ul class="quizzes">
+    <li *ngFor="let quiz of quizzes"
+        [class.selected]="quiz === selectedQuiz"
+        (click)="onSelect(quiz)">
+        <span>{{quiz.Title}}</span>
+    </li>
+</ul>
+<!-- <app-quiz *ngIf="selectedQuiz" [quiz]="selectedQuiz"></app-quiz> -->

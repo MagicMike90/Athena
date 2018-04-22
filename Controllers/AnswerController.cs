@@ -11,7 +11,7 @@ namespace Athena.Controllers {
         /// <summary>
         /// Retrieves the Answer with the given {id}
         /// </summary>
-        /// <param name="id">The ID of an existing Answer</param>
+        /// <param name="id">The id of an existing Answer</param>
         /// <returns>the Answer with the given {id}</returns>
         [HttpGet ("{id}")]
         public IActionResult Get (int id) {
@@ -39,7 +39,7 @@ namespace Athena.Controllers {
         /// <summary>
         /// Deletes the Answer with the given {id} from the Database
         /// </summary>
-        /// <param name="id">The ID of an existing Answer</param>
+        /// <param name="id">The id of an existing Answer</param>
         [HttpDelete ("{id}")]
         public IActionResult Delete (int id) {
             throw new NotImplementedException ();
@@ -53,7 +53,7 @@ namespace Athena.Controllers {
 
             // add a first sample answer
             sampleAnswers.Add (new AnswerViewModel () {
-                Id = 1,
+                id = 1,
                     QuestionId = questionId,
                     Text = "Friends and family",
                     CreatedDate = DateTime.Now,
@@ -63,7 +63,7 @@ namespace Athena.Controllers {
             // add a bunch of other sample answers
             for (int i = 2; i <= 5; i++) {
                 sampleAnswers.Add (new AnswerViewModel () {
-                    Id = i,
+                    id = i,
                         QuestionId = questionId,
                         Text = String.Format ("Sample Answer {0}", i),
                         CreatedDate = DateTime.Now,

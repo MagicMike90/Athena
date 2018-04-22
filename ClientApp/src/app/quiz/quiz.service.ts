@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, Optional } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { APP_BASE_HREF } from '@angular/common';
 
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -11,23 +12,46 @@ const httpOptions = {
 
 @Injectable()
 export class QuizService {
-  private quizzesUrl = 'api/quiz/Latest/';  // URL to web api
+  private quizzesByDateUrl = 'api/quiz/Latest/';  // URL to web api
+  private quizzesByTitleUrl = 'api/quiz/ByTitle/';  // URL to web api
+  private quizzesByRandomUrl = 'api/quiz/Random/';  // URL to web api
   private quizzez = [];
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient,
+    @Optional() @Inject(APP_BASE_HREF) origin: string) {
+    this.quizzesByDateUrl = `${origin}${this.quizzesByDateUrl}`;
+    this.quizzesByTitleUrl = `${origin}${this.quizzesByTitleUrl}`;
+    this.quizzesByRandomUrl = `${origin}${this.quizzesByRandomUrl}`;
+  }
 
   /** GET quizzes from the server */
-  getQuizzes(): Observable<Quiz[]> {
-    return this.http.get<Quiz[]>(this.quizzesUrl)
+  getQuizzesByDate(): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(this.quizzesByDateUrl)
       .pipe(
-        tap(quizzes => console.log(`fetched quizzes`)),
+        tap(quizzes => console.log(`fetched quizzes by date`)),
+        catchError(this.handleError('getQuizzes', []))
+      );
+  }
+
+  getQuizzesByTitle(): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(this.quizzesByTitleUrl)
+      .pipe(
+        tap(quizzes => console.log(`fetched quizzes by title`)),
+        catchError(this.handleError('getQuizzes', []))
+      );
+  }
+  getQuizzesByRandom(): Observable<Quiz[]> {
+    return this.http.get<Quiz[]>(this.quizzesByRandomUrl)
+      .pipe(
+        tap(quizzes => console.log(`fetched quizzes by random`)),
         catchError(this.handleError('getQuizzes', []))
       );
   }
 
   /** GET quiz by id. Return `undefined` when id not found */
   getQuizNo404<Data>(id: number): Observable<Quiz> {
-    const url = `${this.quizzesUrl}/?id=${id}`;
+    const url = `${this.quizzesByDateUrl}/?id=${id}`;
     return this.http.get<Quiz[]>(url)
       .pipe(
         map(quizzes => quizzes[0]), // returns a {0|1} element array
@@ -41,7 +65,7 @@ export class QuizService {
 
   /** GET quiz by id. Will 404 if id not found */
   getQuiz(id: number): Observable<Quiz> {
-    const url = `${this.quizzesUrl}/${id}`;
+    const url = `${this.quizzesByDateUrl}/${id}`;
     return this.http.get<Quiz>(url).pipe(
       tap(_ => console.log(`fetched quiz id=${id}`)),
       catchError(this.handleError<Quiz>(`getQuiz id=${id}`))
@@ -64,7 +88,7 @@ export class QuizService {
 
   /** POST: add a new quiz to the server */
   addQuiz(quiz: Quiz): Observable<Quiz> {
-    return this.http.post<Quiz>(this.quizzesUrl, quiz, httpOptions).pipe(
+    return this.http.post<Quiz>(this.quizzesByDateUrl, quiz, httpOptions).pipe(
       tap((newquiz: Quiz) => console.log(`added quiz w/ id=${newquiz.id}`)),
       catchError(this.handleError<Quiz>('addQuiz'))
     );
@@ -73,7 +97,7 @@ export class QuizService {
   /** DELETE: delete the quiz from the server */
   deleteQuiz(quiz: Quiz | number): Observable<Quiz> {
     const id = typeof quiz === 'number' ? quiz : quiz.id;
-    const url = `${this.quizzesUrl}/${id}`;
+    const url = `${this.quizzesByDateUrl}/${id}`;
 
     return this.http.delete<Quiz>(url, httpOptions).pipe(
       tap(_ => console.log(`deleted quiz id=${id}`)),
@@ -83,7 +107,7 @@ export class QuizService {
 
   /** PUT: update the quiz on the server */
   updateQuiz(quiz: Quiz): Observable<any> {
-    return this.http.put(this.quizzesUrl, quiz, httpOptions).pipe(
+    return this.http.put(this.quizzesByDateUrl, quiz, httpOptions).pipe(
       tap(_ => console.log(`updated quiz id=${quiz.id}`)),
       catchError(this.handleError<any>('updateQuiz'))
     );
