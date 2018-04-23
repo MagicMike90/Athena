@@ -13,7 +13,7 @@ namespace Athena.ViewModels {
         #endregion
 
         #region Properties 
-        public int id { get; set; }
+        public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Text { get; set; }
