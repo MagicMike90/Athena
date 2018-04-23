@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Athena.Data {
     public class ApplicationDbContext : DbContext {
         #region Constructor
-        public ApplicationDbContext (DbContextOptions options) : base (options) { }
+        public ApplicationDbContext (DbContextOptions<ApplicationDbContext> options) : base (options) { }
         #endregion Constructor
 
         #region Methods
