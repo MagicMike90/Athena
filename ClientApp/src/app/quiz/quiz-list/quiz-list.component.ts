@@ -43,10 +43,11 @@ export class QuizListComponent implements OnInit {
   }
 
   onSelect(quiz: Quiz) {
+    console.log(quiz);
     this.selectedQuiz = quiz;
     console.log('quiz with Id '
-      + this.selectedQuiz.id
+      + this.selectedQuiz.Id
       + ' has been selected.');
-    this.router.navigate(['/quiz', this.selectedQuiz.id]);
+    // this.router.navigate(['/quiz', this.selectedQuiz.Id]);
   }
 }
