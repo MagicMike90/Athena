@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import * as feather from 'feather-icons';
 
 @Component({
   selector: 'app-nav-menu',

@@ -33,6 +33,12 @@ namespace Athena.Controllers {
             var quiz = DbContext.Quizzes.Where (i => i.Id ==
                 id).FirstOrDefault ();
 
+            // handle requests asking for non-existing quizzes
+            if (quiz == null) {
+                return NotFound (new {
+                    Error = String.Format ("Quiz ID {0} has not been found", id)
+                });
+            }
             return new JsonResult (
                 quiz.Adapt<QuizViewModel> (),
                 new JsonSerializerSettings () {
@@ -120,7 +126,7 @@ namespace Athena.Controllers {
                 .OrderBy (q => Guid.NewGuid ())
                 .Take (num)
                 .ToArray ();
-                
+
             return new JsonResult (
                 random.Adapt<QuizViewModel[]> (),
                 new JsonSerializerSettings () {
