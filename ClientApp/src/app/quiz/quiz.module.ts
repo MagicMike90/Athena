@@ -7,6 +7,7 @@ import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { QuizService } from './quiz.service';
 import { QuizComponent } from './quiz/quiz.component';
 import { FormsModule } from '@angular/forms';
+import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { FormsModule } from '@angular/forms';
   providers: [
     QuizService
   ],
-  declarations: [QuizListComponent, QuizComponent],
+  declarations: [QuizListComponent, QuizComponent, QuizEditComponent],
   exports: [
     QuizListComponent
   ],
