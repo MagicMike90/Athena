@@ -29,7 +29,9 @@ namespace Athena {
 
             // Add ApplicationDbContext.
             services.AddDbContext<ApplicationDbContext> (options =>
-                options.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection")));
+                // options.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection"))
+                options.UseSqlite ("Data Source=quiz.db")
+            );
 
         }
 
@@ -37,6 +39,14 @@ namespace Athena {
         public void Configure (IApplicationBuilder app, IHostingEnvironment env) {
             if (env.IsDevelopment ()) {
                 app.UseDeveloperExceptionPage ();
+                // Create a service scope to get an ApplicationDbContext instance using DI
+                using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory> ().CreateScope ()) {
+                    var dbContext = serviceScope.ServiceProvider.GetService<ApplicationDbContext> ();
+                    // Create the Db if it doesn't exist and applies any pending migration 
+                    dbContext.Database.Migrate ();
+                    // Seed the Db.
+                    DbSeeder.Seed (dbContext);
+                }
             } else {
                 app.UseExceptionHandler ("/Home/Error");
             }
