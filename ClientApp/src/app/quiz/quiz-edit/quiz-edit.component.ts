@@ -37,7 +37,13 @@ export class QuizEditComponent implements OnInit {
     const id = +this.activatedRoute.snapshot.params['id'];
     if (id) {
       this.editMode = true;
-      this.quizService.getQuiz(id).subscribe(quiz => this.quiz = quiz);
+      this.quizService.getQuiz(id).subscribe(quiz => {
+        this.quiz = quiz;
+        this.title = 'Edit - ' + this.quiz.Title;
+
+        // update the form with the quiz value
+        this.updateForm();
+      });
     } else {
       this.editMode = false;
       this.title = 'Create a new Quiz';
