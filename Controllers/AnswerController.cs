@@ -24,18 +24,14 @@ namespace Athena.Controllers {
             var answer = DbContext.Answers.Where (i => i.Id == id)
                 .FirstOrDefault ();
 
-            // handle requests asking for non-existing answers
-            if (answer == null) {
-                return NotFound (new {
-                    Error = String.Format ("Answer ID {0} has not been found", id)
-                });
-            }
+            // handle requests asking for non-existing quizzes
+            if (answer == null) return NotFound (new {
+                Error = String.Format ("Answer ID {0} has not been found", id)
+            });
 
             return new JsonResult (
                 answer.Adapt<AnswerViewModel> (),
-                new JsonSerializerSettings () {
-                    Formatting = Formatting.Indented
-                });
+                JsonSettings);
         }
 
         /// <summary>
@@ -62,10 +58,7 @@ namespace Athena.Controllers {
             DbContext.SaveChanges ();
 
             // return the newly-created Answer to the client.
-            return new JsonResult (answer.Adapt<AnswerViewModel> (),
-                new JsonSerializerSettings () {
-                    Formatting = Formatting.Indented
-                });
+            return new JsonResult (answer.Adapt<AnswerViewModel> (), JsonSettings);
         }
 
         /// <summary>
@@ -82,12 +75,10 @@ namespace Athena.Controllers {
             var answer = DbContext.Answers.Where (q => q.Id ==
                 model.Id).FirstOrDefault ();
 
-            // handle requests asking for non-existing answers
-            if (answer == null) {
-                return NotFound (new {
-                    Error = String.Format ("Answer ID {0} has not been found", model.Id)
-                });
-            }
+            // handle requests asking for non-existing quizzes
+            if (answer == null) return NotFound (new {
+                Error = String.Format ("Answer ID {0} has not been found", model.Id)
+            });
 
             // handle the update (without object-mapping)
             //   by manually assigning the properties 
@@ -104,10 +95,7 @@ namespace Athena.Controllers {
             DbContext.SaveChanges ();
 
             // return the updated Quiz to the client.
-            return new JsonResult (answer.Adapt<AnswerViewModel> (),
-                new JsonSerializerSettings () {
-                    Formatting = Formatting.Indented
-                });
+            return new JsonResult (answer.Adapt<AnswerViewModel> (), JsonSettings);
         }
 
         /// <summary>
@@ -121,11 +109,9 @@ namespace Athena.Controllers {
                 .FirstOrDefault ();
 
             // handle requests asking for non-existing answers
-            if (answer == null) {
-                return NotFound (new {
-                    Error = String.Format ("Answer ID {0} has not been found", id)
-                });
-            }
+            if (answer == null) return NotFound (new {
+                Error = String.Format ("Answer ID {0} has not been found", id)
+            });
 
             // remove the quiz from the DbContext.
             DbContext.Answers.Remove (answer);
@@ -138,16 +124,14 @@ namespace Athena.Controllers {
         #endregion
 
         // GET api/answer/all
-        [HttpGet ("All/{answerId}")]
+        [HttpGet ("All/{questionId}")]
         public IActionResult All (int questionId) {
             var answers = DbContext.Answers
                 .Where (q => q.QuestionId == questionId)
                 .ToArray ();
             return new JsonResult (
-                answers.Adapt<QuestionViewModel[]> (),
-                new JsonSerializerSettings () {
-                    Formatting = Formatting.Indented
-                });
+                answers.Adapt<AnswerViewModel[]> (),
+                JsonSettings);
         }
     }
 }
