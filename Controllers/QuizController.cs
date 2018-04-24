@@ -41,7 +41,7 @@ namespace Athena.Controllers {
         /// Adds a new Quiz to the Database
         /// </summary>
         /// <param name="model">The QuizViewModel containing the data to insert</param>
-        [HttpPut]
+        [HttpPost]
         public IActionResult Post ([FromBody] QuizViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
