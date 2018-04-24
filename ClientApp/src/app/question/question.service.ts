@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import handleError from '../share/http.error.handler';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -27,7 +29,7 @@ export class QuestionService {
     return this.http.get<Question[]>(url)
       .pipe(
         tap(quizzes => console.log(`fetched quizzes by date`)),
-        catchError(this.handleError('getQuestionzes', []))
+        catchError(handleError('getQuestionzes', []))
       );
   }
 
@@ -41,7 +43,7 @@ export class QuestionService {
           const outcome = h ? `fetched` : `did not find`;
           console.log(`${outcome} question id=${id}`);
         }),
-        catchError(this.handleError<Question>(`getQuestion id=${id}`))
+        catchError(handleError<Question>(`getQuestion id=${id}`))
       );
   }
 
@@ -50,7 +52,7 @@ export class QuestionService {
     const url = `${this.questionUrl}/${id}`;
     return this.http.get<Question>(url).pipe(
       tap(_ => console.log(`fetched question id=${id}`)),
-      catchError(this.handleError<Question>(`getQuestion id=${id}`))
+      catchError(handleError<Question>(`getQuestion id=${id}`))
     );
   }
 
@@ -62,7 +64,7 @@ export class QuestionService {
     }
     return this.http.get<Question[]>(`api/quizzes/?name=${term}`).pipe(
       tap(_ => console.log(`found quizzes matching "${term}"`)),
-      catchError(this.handleError<Question[]>('searchQuestionzes', []))
+      catchError(handleError<Question[]>('searchQuestionzes', []))
     );
   }
 
@@ -72,7 +74,7 @@ export class QuestionService {
   addQuestion(question: Question): Observable<Question> {
     return this.http.post<Question>(this.questionUrl, question, httpOptions).pipe(
       tap((newquiz: Question) => console.log(`added question w/ id=${newquiz.Id}`)),
-      catchError(this.handleError<Question>('addQuestion'))
+      catchError(handleError<Question>('addQuestion'))
     );
   }
 
@@ -83,7 +85,7 @@ export class QuestionService {
 
     return this.http.delete<Question>(url, httpOptions).pipe(
       tap(_ => console.log(`deleted question id=${id}`)),
-      catchError(this.handleError<Question>('deleteQuestion'))
+      catchError(handleError<Question>('deleteQuestion'))
     );
   }
 
@@ -91,27 +93,7 @@ export class QuestionService {
   updateQuestion(question: Question): Observable<any> {
     return this.http.put(this.questionUrl, question, httpOptions).pipe(
       tap(_ => console.log(`updated question id=${question.Id}`)),
-      catchError(this.handleError<any>('updateQuestion'))
+      catchError(handleError<any>('updateQuestion'))
     );
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
   }
 }

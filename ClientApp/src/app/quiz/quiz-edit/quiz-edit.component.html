@@ -21,4 +21,5 @@
     <input type="button" value="Cancel" (click)="onBack()" />
   </div>
   <app-question-list [quiz]="quiz" *ngIf="editMode"></app-question-list>
+  <app-result-list *ngIf="editMode" [quiz]="quiz"></app-result-list>
 </div>

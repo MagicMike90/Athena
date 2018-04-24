@@ -10,6 +10,7 @@ import { QuizComponent } from './quiz/quiz.component';
 
 import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 import { QuestionModule } from '../question/question.module';
+import { ResultModule } from '../result/result.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { QuestionModule } from '../question/question.module';
     HttpModule,
 
     QuizRoutingModule,
-    QuestionModule
+    QuestionModule,
+    ResultModule
   ],
   providers: [
     QuizService

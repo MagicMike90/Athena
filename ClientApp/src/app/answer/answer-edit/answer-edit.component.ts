@@ -31,7 +31,7 @@ export class AnswerEditComponent implements OnInit {
     const id = +this.activatedRoute.snapshot.params['id'];
 
     // quick & dirty way to check if we're in edit mode or not
-    this.editMode = (this.activatedRoute.snapshot.url[1].path == 'edit');
+    this.editMode = (this.activatedRoute.snapshot.url[1].path === 'edit');
 
     if (this.editMode) {
       this.answerService.getAnswer(id);

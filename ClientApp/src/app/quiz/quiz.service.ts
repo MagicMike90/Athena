@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import handleError from '../share/http.error.handler';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -25,6 +27,7 @@ export class QuizService {
     this.quizzesByTitleUrl = `${origin}${this.quizzesByTitleUrl}`;
     this.quizzesByRandomUrl = `${origin}${this.quizzesByRandomUrl}`;
     this.quizUrl = `${origin}${this.quizUrl}`;
+
   }
 
   /** GET quizzes from the server */
@@ -32,7 +35,7 @@ export class QuizService {
     return this.http.get<Quiz[]>(this.quizzesByDateUrl)
       .pipe(
         tap(quizzes => console.log(`fetched quizzes by date`)),
-        catchError(this.handleError('getQuizzes', []))
+        catchError(handleError('getQuizzes', []))
       );
   }
 
@@ -40,14 +43,14 @@ export class QuizService {
     return this.http.get<Quiz[]>(this.quizzesByTitleUrl)
       .pipe(
         tap(quizzes => console.log(`fetched quizzes by title`)),
-        catchError(this.handleError('getQuizzes', []))
+        catchError(handleError('getQuizzes', []))
       );
   }
   getQuizzesByRandom(): Observable<Quiz[]> {
     return this.http.get<Quiz[]>(this.quizzesByRandomUrl)
       .pipe(
         tap(quizzes => console.log(`fetched quizzes by random`)),
-        catchError(this.handleError('getQuizzes', []))
+        catchError(handleError('getQuizzes', []))
       );
   }
 
@@ -61,7 +64,7 @@ export class QuizService {
           const outcome = h ? `fetched` : `did not find`;
           console.log(`${outcome} quiz id=${id}`);
         }),
-        catchError(this.handleError<Quiz>(`getQuiz id=${id}`))
+        catchError(handleError<Quiz>(`getQuiz id=${id}`))
       );
   }
 
@@ -70,7 +73,7 @@ export class QuizService {
     const url = `${this.quizUrl}/${id}`;
     return this.http.get<Quiz>(url).pipe(
       tap(_ => console.log(`fetched quiz id=${id}`)),
-      catchError(this.handleError<Quiz>(`getQuiz id=${id}`))
+      catchError(handleError<Quiz>(`getQuiz id=${id}`))
     );
   }
 
@@ -82,7 +85,7 @@ export class QuizService {
     }
     return this.http.get<Quiz[]>(`api/quizzes/?name=${term}`).pipe(
       tap(_ => console.log(`found quizzes matching "${term}"`)),
-      catchError(this.handleError<Quiz[]>('searchQuizzes', []))
+      catchError(handleError<Quiz[]>('searchQuizzes', []))
     );
   }
 
@@ -92,7 +95,7 @@ export class QuizService {
   addQuiz(quiz: Quiz): Observable<Quiz> {
     return this.http.post<Quiz>(this.quizUrl, quiz, httpOptions).pipe(
       tap((newquiz: Quiz) => console.log(`added quiz w/ id=${newquiz.Id}`)),
-      catchError(this.handleError<Quiz>('addQuiz'))
+      catchError(handleError<Quiz>('addQuiz'))
     );
   }
 
@@ -103,7 +106,7 @@ export class QuizService {
 
     return this.http.delete<Quiz>(url, httpOptions).pipe(
       tap(_ => console.log(`deleted quiz id=${id}`)),
-      catchError(this.handleError<Quiz>('deleteQuiz'))
+      catchError(handleError<Quiz>('deleteQuiz'))
     );
   }
 
@@ -111,27 +114,7 @@ export class QuizService {
   updateQuiz(quiz: Quiz): Observable<any> {
     return this.http.put(this.quizUrl, quiz, httpOptions).pipe(
       tap(_ => console.log(`updated quiz id=${quiz.Id}`)),
-      catchError(this.handleError<any>('updateQuiz'))
+      catchError(handleError<any>('updateQuiz'))
     );
-  }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
   }
 }

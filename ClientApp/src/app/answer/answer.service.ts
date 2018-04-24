@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
+import handleError from '../share/http.error.handler';
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -28,7 +30,7 @@ export class AnswerService {
     return this.http.get<Answer[]>(url)
       .pipe(
         tap(answers => console.log(`fetched answers by date`)),
-        catchError(this.handleError('getAnswers', []))
+        catchError(handleError('getAnswers', []))
       );
   }
 
@@ -42,7 +44,7 @@ export class AnswerService {
           const outcome = h ? `fetched` : `did not find`;
           console.log(`${outcome} answer id=${id}`);
         }),
-        catchError(this.handleError<Answer>(`getAnswer id=${id}`))
+        catchError(handleError<Answer>(`getAnswer id=${id}`))
       );
   }
 
@@ -51,7 +53,7 @@ export class AnswerService {
     const url = `${this.answerUrl}/${id}`;
     return this.http.get<Answer>(url).pipe(
       tap(_ => console.log(`fetched answer id=${id}`)),
-      catchError(this.handleError<Answer>(`getAnswer id=${id}`))
+      catchError(handleError<Answer>(`getAnswer id=${id}`))
     );
   }
 
@@ -63,7 +65,7 @@ export class AnswerService {
     }
     return this.http.get<Answer[]>(`api/answers/?name=${term}`).pipe(
       tap(_ => console.log(`found answers matching "${term}"`)),
-      catchError(this.handleError<Answer[]>('searchAnswers', []))
+      catchError(handleError<Answer[]>('searchAnswers', []))
     );
   }
 
@@ -73,7 +75,7 @@ export class AnswerService {
   addAnswer(answer: Answer): Observable<Answer> {
     return this.http.post<Answer>(this.answerUrl, answer, httpOptions).pipe(
       tap((newquiz: Answer) => console.log(`added answer w/ id=${newquiz.Id}`)),
-      catchError(this.handleError<Answer>('addAnswer'))
+      catchError(handleError<Answer>('addAnswer'))
     );
   }
 
@@ -84,7 +86,7 @@ export class AnswerService {
 
     return this.http.delete<Answer>(url, httpOptions).pipe(
       tap(_ => console.log(`deleted answer id=${id}`)),
-      catchError(this.handleError<Answer>('deleteAnswer'))
+      catchError(handleError<Answer>('deleteAnswer'))
     );
   }
 
@@ -92,28 +94,7 @@ export class AnswerService {
   updateAnswer(answer: Answer): Observable<any> {
     return this.http.put(this.answerUrl, answer, httpOptions).pipe(
       tap(_ => console.log(`updated answer id=${answer.Id}`)),
-      catchError(this.handleError<any>('updateAnswer'))
+      catchError(handleError<any>('updateAnswer'))
     );
   }
-
-  /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
-
 }
