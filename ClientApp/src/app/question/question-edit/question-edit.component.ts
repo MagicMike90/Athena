@@ -20,21 +20,22 @@ export class QuestionEditComponent implements OnInit {
 
     // create an empty object from the Quiz interface
     this.question = <Question>{};
-
+  }
+  ngOnInit() {
     const id = +this.activatedRoute.snapshot.params['id'];
 
     // check if we're in edit mode or not
     this.editMode = (this.activatedRoute.snapshot.url[1].path === 'edit');
 
     if (this.editMode) {
-      this.questionService.getQuestion(id).subscribe(question => this.question = question);
+      this.questionService.getQuestion(id).subscribe(question => {
+        this.question = question;
+        this.title = 'Edit - ' + this.question.Text;
+      });
     } else {
       this.question.QuizId = id;
       this.title = 'Create a new Question';
     }
-  }
-  ngOnInit() {
-
   }
 
   onSubmit(question: Question) {
