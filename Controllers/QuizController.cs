@@ -42,7 +42,7 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="model">The QuizViewModel containing the data to insert</param>
         [HttpPut]
-        public IActionResult Put ([FromBody] QuizViewModel model) {
+        public IActionResult Post ([FromBody] QuizViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
             if (model == null) return new StatusCodeResult (500);
@@ -73,8 +73,8 @@ namespace Athena.Controllers {
         /// Edit the Quiz with the given {id}
         /// </summary>
         /// <param name="model">The QuizViewModel containing the data to update</param>
-        [HttpPost]
-        public IActionResult Post ([FromBody] QuizViewModel model) {
+        [HttpPut]
+        public IActionResult Put ([FromBody] QuizViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
             if (model == null) return new StatusCodeResult (500);
