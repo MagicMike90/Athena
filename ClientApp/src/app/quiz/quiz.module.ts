@@ -8,6 +8,7 @@ import { QuizService } from './quiz.service';
 import { QuizComponent } from './quiz/quiz.component';
 import { FormsModule } from '@angular/forms';
 import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
+import { QuestionModule } from '../question/question.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
     FormsModule,
     HttpModule,
 
-    QuizRoutingModule
+    QuizRoutingModule,
+    QuestionModule
   ],
   providers: [
     QuizService
