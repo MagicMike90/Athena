@@ -11,6 +11,7 @@ import { QuizComponent } from './quiz/quiz.component';
 import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 import { QuestionModule } from '../question/question.module';
 import { ResultModule } from '../result/result.module';
+import { QuizSearchComponent } from './quiz-search/quiz-search.component';
 
 @NgModule({
   imports: [
@@ -25,9 +26,10 @@ import { ResultModule } from '../result/result.module';
   providers: [
     QuizService
   ],
-  declarations: [QuizListComponent, QuizComponent, QuizEditComponent],
+  declarations: [QuizListComponent, QuizComponent, QuizEditComponent, QuizSearchComponent],
   exports: [
-    QuizListComponent
+    QuizListComponent,
+    QuizSearchComponent
   ],
 })
 export class QuizModule { }
