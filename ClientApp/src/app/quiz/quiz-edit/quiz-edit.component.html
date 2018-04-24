@@ -8,14 +8,12 @@
   <div>
     <label for="description">Quiz description:</label>
     <br />
-    <input type="text" id="description" [(ngModel)]="quiz.Description" placeholder="enter a 
-          description..." />
+    <input type="text" id="description" [(ngModel)]="quiz.Description" placeholder="enter a description..." />
   </div>
   <div>
     <label for="text">Quiz informative text:</label>
     <br />
-    <textarea id="text" [(ngModel)]="quiz.Text" placeholder="enter 
-          a text..."></textarea>
+    <textarea id="text" [(ngModel)]="quiz.Text" placeholder="enter a text..."></textarea>
   </div>
   <div>
     <input *ngIf="editMode" type="button" value="Apply Changes" (click)="onSubmit(quiz)" />

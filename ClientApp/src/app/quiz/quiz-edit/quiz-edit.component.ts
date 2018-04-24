@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { QuizService } from '../quiz.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-quiz-edit',
@@ -13,13 +14,14 @@ export class QuizEditComponent implements OnInit {
   title: string;
   quiz: Quiz;
 
-  // this will be TRUE when editing an existing quiz, 
-  //   FALSE when creating a new one.
+  // this will be TRUE when editing an existing quiz,
+  // FALSE when creating a new one.
   editMode: boolean;
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
-    private quizService: QuizService) {
+    private quizService: QuizService,
+    private location: Location) {
 
     // create an empty object from the Quiz interface
     this.quiz = <Quiz>{};
@@ -37,22 +39,26 @@ export class QuizEditComponent implements OnInit {
 
   }
   onSubmit(quiz: Quiz) {
-
+    console.log('quiz', quiz);
     if (this.editMode) {
       this.quizService.updateQuiz(quiz).subscribe(res => {
-        console.log('Quiz ' + res.Id + ' has been updated.');
-        this.router.navigate(['home']);
+        console.log('Quiz ' + res + ' has been updated.');
+        // this.router.navigate(['home']);
+        this.goBack();
       });
 
     } else {
       this.quizService.addQuiz(quiz).subscribe(res => {
-        console.log('Quiz ' + res.Id + ' has been created.');
-        this.router.navigate(['home']);
+        console.log('Quiz ' + res + ' has been created.');
+        // this.router.navigate(['home']);
+        this.goBack();
       });
     }
   }
-
-  onBack() {
-    this.router.navigate(['home']);
+  goBack(): void {
+    this.location.back();
   }
+  // onBack() {
+  //   this.router.navigate(['home']);
+  // }
 }

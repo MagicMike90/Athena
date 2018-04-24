@@ -1,19 +1,11 @@
-app-quiz-list {
-  width: 400px;
-  display: block;
-  padding: 2px 20px;
-  margin: 0px 5px;
-  float: left;
-}
-
-app-quiz-list.latest {
+.latest {
   background-color: #f0f0f0;
 }
 
-app-quiz-list.byTitle {
+.byTitle {
   background-color: #e0e0e0;
 }
 
-app-quiz-list.random {
+.random {
   background-color: #d0d0d0;
 }

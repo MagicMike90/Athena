@@ -53,7 +53,7 @@ namespace Athena.Controllers {
 
             // add a first sample question
             sampleQuestions.Add (new QuestionViewModel () {
-                id = 1,
+                Id = 1,
                     QuizId = quizId,
                     Text = "What do you value most in your life?",
                     CreatedDate = DateTime.Now,
@@ -63,7 +63,7 @@ namespace Athena.Controllers {
             // add a bunch of other sample questions
             for (int i = 2; i <= 5; i++) {
                 sampleQuestions.Add (new QuestionViewModel () {
-                    id = i,
+                    Id = i,
                         QuizId = quizId,
                         Text = String.Format ("Sample Question {0}", i),
                         CreatedDate = DateTime.Now,

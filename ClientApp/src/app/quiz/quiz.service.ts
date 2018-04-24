@@ -90,7 +90,7 @@ export class QuizService {
 
   /** POST: add a new quiz to the server */
   addQuiz(quiz: Quiz): Observable<Quiz> {
-    return this.http.post<Quiz>(this.quizzesByDateUrl, quiz, httpOptions).pipe(
+    return this.http.post<Quiz>(this.quizUrl, quiz, httpOptions).pipe(
       tap((newquiz: Quiz) => console.log(`added quiz w/ id=${newquiz.Id}`)),
       catchError(this.handleError<Quiz>('addQuiz'))
     );
@@ -99,7 +99,7 @@ export class QuizService {
   /** DELETE: delete the quiz from the server */
   deleteQuiz(quiz: Quiz | number): Observable<Quiz> {
     const id = typeof quiz === 'number' ? quiz : quiz.Id;
-    const url = `${this.quizzesByDateUrl}/${id}`;
+    const url = `${this.quizUrl}/${id}`;
 
     return this.http.delete<Quiz>(url, httpOptions).pipe(
       tap(_ => console.log(`deleted quiz id=${id}`)),
@@ -109,7 +109,7 @@ export class QuizService {
 
   /** PUT: update the quiz on the server */
   updateQuiz(quiz: Quiz): Observable<any> {
-    return this.http.put(this.quizzesByDateUrl, quiz, httpOptions).pipe(
+    return this.http.put(this.quizUrl, quiz, httpOptions).pipe(
       tap(_ => console.log(`updated quiz id=${quiz.Id}`)),
       catchError(this.handleError<any>('updateQuiz'))
     );

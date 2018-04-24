@@ -17,7 +17,7 @@ namespace Athena.ViewModels
         #endregion
 
         #region Properties
-        public int id { get; set; }
+        public int Id { get; set; }
         public int QuizId { get; set; }
         public int QuestionId { get; set; }
         public string Text { get; set; }

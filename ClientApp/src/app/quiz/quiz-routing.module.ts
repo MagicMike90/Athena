@@ -6,6 +6,7 @@ import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 
 
 const routes: Routes = [
+    { path: 'quiz/edit/:id', component: QuizEditComponent },
     { path: 'quiz/create', component: QuizEditComponent },
     { path: 'quiz/:id', component: QuizComponent },
 
