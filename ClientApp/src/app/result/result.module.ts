@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ResultListComponent } from './result-list/result-list.component';
 import { ResultEditComponent } from './result-edit/result-edit.component';
@@ -16,6 +16,7 @@ import { AnswerModule } from '../answer/answer.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
 
     ResultRoutingModule,
