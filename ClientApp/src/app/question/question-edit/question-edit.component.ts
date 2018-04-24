@@ -40,12 +40,12 @@ export class QuestionEditComponent implements OnInit {
 
   onSubmit(question: Question) {
     if (this.editMode) {
-      this.questionService.addQuestion(question).subscribe(res => {
+      this.questionService.updateQuestion(question).subscribe(res => {
         console.log('Question ' + res + ' has been updated.');
         this.router.navigate(['quiz/edit', res.QuizId]);
       });
     } else {
-      this.questionService.updateQuestion(question).subscribe(res => {
+      this.questionService.addQuestion(question).subscribe(res => {
         console.log('Question ' + res.Id + ' has been updated.');
         this.router.navigate(['quiz/edit', res.QuizId]);
       });

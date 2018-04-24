@@ -37,12 +37,12 @@ export class ResultEditComponent implements OnInit {
 
   onSubmit(result: Result) {
     if (this.editMode) {
-      this.resultService.addResult(result).subscribe(res => {
+      this.resultService.updateResult(result).subscribe(res => {
         console.log('Result ' + res.Id + ' has been updated.');
         this.router.navigate(['quiz/edit', res.QuizId]);
       });
     } else {
-      this.resultService.updateResult(result).subscribe(res => {
+      this.resultService.addResult(result).subscribe(res => {
         console.log('Result ' + res.Id + ' has been updated.');
         this.router.navigate(['quiz/edit', res.QuizId]);
       });
