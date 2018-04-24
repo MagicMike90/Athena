@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { QuizRoutingModule } from './quiz-routing.module';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
@@ -17,6 +17,7 @@ import { QuizSearchComponent } from './quiz-search/quiz-search.component';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
 
     QuizRoutingModule,

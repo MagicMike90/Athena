@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { QuizService } from '../quiz.service';
 import { Location } from '@angular/common';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-quiz-edit',
@@ -13,7 +14,7 @@ export class QuizEditComponent implements OnInit {
 
   title: string;
   quiz: Quiz;
-
+  form: FormGroup;
   // this will be TRUE when editing an existing quiz,
   // FALSE when creating a new one.
   editMode: boolean;
@@ -21,10 +22,17 @@ export class QuizEditComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
     private quizService: QuizService,
+    private fb: FormBuilder,
     private location: Location) {
 
     // create an empty object from the Quiz interface
     this.quiz = <Quiz>{};
+
+
+  }
+  ngOnInit() {
+    // initialize the form
+    this.createForm();
 
     const id = +this.activatedRoute.snapshot.params['id'];
     if (id) {
@@ -35,29 +43,74 @@ export class QuizEditComponent implements OnInit {
       this.title = 'Create a new Quiz';
     }
   }
-  ngOnInit() {
-
+  createForm() {
+    this.form = this.fb.group({
+      Title: ['', Validators.required],
+      Description: '',
+      Text: ''
+    });
   }
-  onSubmit(quiz: Quiz) {
+
+  updateForm() {
+    this.form.setValue({
+      Title: this.quiz.Title,
+      Description: this.quiz.Description || '',
+      Text: this.quiz.Text || ''
+    });
+  }
+  onSubmit() {
+    // build a temporary quiz object from form values
+    const tempQuiz = <Quiz>{};
+    tempQuiz.Title = this.form.value.Title;
+    tempQuiz.Description = this.form.value.Description;
+    tempQuiz.Text = this.form.value.Text;
+
     if (this.editMode) {
-      this.quizService.updateQuiz(quiz).subscribe(res => {
+      // don't forget to set the tempQuiz Id,
+      // otherwise the EDIT would fail!
+      tempQuiz.Id = this.quiz.Id;
+
+      this.quizService.updateQuiz(tempQuiz).subscribe(res => {
         console.log('Quiz ' + res + ' has been updated.');
         // this.router.navigate(['home']);
-        this.goBack();
+        this.onBack();
       });
 
     } else {
-      this.quizService.addQuiz(quiz).subscribe(res => {
+      this.quizService.addQuiz(tempQuiz).subscribe(res => {
         console.log('Quiz ' + res + ' has been created.');
         // this.router.navigate(['home']);
-        this.goBack();
+        this.onBack();
       });
     }
   }
-  goBack(): void {
-    this.location.back();
+  onBack(): void {
+    // this.location.back();
+    this.router.navigate(['home']);
   }
   // onBack() {
   //   this.router.navigate(['home']);
   // }
+  // retrieve a FormControl
+  getFormControl(name: string) {
+    return this.form.get(name);
+  }
+
+  // returns TRUE if the FormControl is valid
+  isValid(name: string) {
+    const e = this.getFormControl(name);
+    return e && e.valid;
+  }
+
+  // returns TRUE if the FormControl has been changed
+  isChanged(name: string) {
+    const e = this.getFormControl(name);
+    return e && (e.dirty || e.touched);
+  }
+
+  // returns TRUE if the FormControl is invalid after user changes
+  hasError(name: string) {
+    const e = this.getFormControl(name);
+    return e && (e.dirty || e.touched) && !e.valid;
+  }
 }
