@@ -39,7 +39,6 @@ export class QuizEditComponent implements OnInit {
 
   }
   onSubmit(quiz: Quiz) {
-    console.log('quiz', quiz);
     if (this.editMode) {
       this.quizService.updateQuiz(quiz).subscribe(res => {
         console.log('Quiz ' + res + ' has been updated.');
