@@ -3,10 +3,14 @@ import { CommonModule } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { QuestionRoutingModule } from './question-routing.module';
 import { QuestionListComponent } from './question-list/question-list.component';
-import { QuestionService } from './question.service';
 import { QuestionEditComponent } from './question-edit/question-edit.component';
+
+import { QuestionRoutingModule } from './question-routing.module';
+import { QuestionService } from './question.service';
+
+import { AnswerModule } from '../answer/answer.module';
+
 
 @NgModule({
   imports: [
@@ -14,7 +18,8 @@ import { QuestionEditComponent } from './question-edit/question-edit.component';
     FormsModule,
     HttpModule,
 
-    QuestionRoutingModule
+    QuestionRoutingModule,
+    AnswerModule
   ],
   declarations: [QuestionListComponent, QuestionEditComponent],
   exports: [
