@@ -1,3 +1,3 @@
 # Athena
 
-ASPNETCORE_ENVIRONMENT=Development dotnet run
+ASPNETCORE_ENVIRONMENT=Development dotnet watch run

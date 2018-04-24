@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Athena.Data;
 using Athena.ViewModels;
 using Mapster;
@@ -7,17 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Athena.Controllers {
-    [Route ("api/[controller]")]
-    public class ResultController : Controller {
-        #region Private Fields
-        private ApplicationDbContext DbContext;
-        #endregion
-
+    public class ResultController : BaseApiController {
         #region Constructor
-        public ResultController (ApplicationDbContext context) {
-            // Instantiate the ApplicationDbContext through DI
-            DbContext = context;
-        }
+        public ResultController (ApplicationDbContext context) : base (context) { }
         #endregion
 
         #region RESTful conventions methods

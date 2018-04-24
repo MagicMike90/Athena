@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Athena.Data;
 using Athena.ViewModels;
+using Mapster;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Athena.Controllers {
-    [Route ("api/[controller]")]
-    public class QuestionController : Controller {
+    public class QuestionController : BaseApiController {
+        #region Constructor
+        public QuestionController (ApplicationDbContext context) : base (context) { }
+        #endregion
+
         #region RESTful conventions methods
         /// <summary>
         /// Retrieves the Question with the given {id}

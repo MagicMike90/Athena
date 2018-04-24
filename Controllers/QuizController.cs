@@ -8,18 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace Athena.Controllers {
-    [Route ("api/[controller]")]
-    public class QuizController : Controller {
-        #region Private Fields
-        private ApplicationDbContext DbContext;
-        #endregion
-
+    public class QuizController : BaseApiController {
         #region Constructor
-        public QuizController (ApplicationDbContext context) {
-            // Instantiate the ApplicationDbContext through DI
-            DbContext = context;
-        }
-        #endregion Constructor
+        public QuizController (ApplicationDbContext context) : base (context) { }
+        #endregion
 
         #region RESTful conventions methods
         /// <summary>
