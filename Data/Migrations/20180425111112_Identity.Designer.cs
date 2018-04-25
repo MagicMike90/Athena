@@ -11,13 +11,14 @@ using System;
 namespace Athena.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180425031609_Identity")]
+    [Migration("20180425111112_Identity")]
     partial class Identity
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011");
 
             modelBuilder.Entity("Athena.Data.Answer", b =>

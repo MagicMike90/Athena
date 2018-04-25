@@ -8,4 +8,15 @@ dotnet ef migrations add "Identity" -o "Data/Migrations"
 
 ## update a database
 
-dotnet ef database updat
+- option 1: update
+
+```bash
+dotnet ef database update
+```
+
+- option 2: drop and recreate
+
+```bash
+dotnet ef database drop
+dotnet ef database update
+```
