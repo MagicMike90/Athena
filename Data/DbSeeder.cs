@@ -13,6 +13,7 @@ namespace Athena.Data {
         public static void Seed (ApplicationDbContext dbContext,
             RoleManager<IdentityRole> roleManager,
             UserManager<ApplicationUser> userManager) {
+                
             // Create default Users (if there are none)
             if (!dbContext.Users.Any ()) {
                 CreateUsers (dbContext, roleManager, userManager)
@@ -122,11 +123,8 @@ namespace Athena.Data {
             DateTime lastModifiedDate = DateTime.Now;
 
             // retrieve the admin user, which we'll use as default author.
-            var authorId = dbContext.Users
-                .Where (u => u.UserName == "Admin")
-                .FirstOrDefault ()
-                .Id;
-
+            var authorId = dbContext.Users.Where (u => u.UserName == "Admin").FirstOrDefault ().Id;
+            
 #if DEBUG
             // create 47 sample quizzes with auto-generated data
             // (including questions, answers & results)

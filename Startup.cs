@@ -34,6 +34,8 @@ namespace Athena {
                 options.UseSqlite ("Data Source=quiz.db")
             );
 
+            // services.AddEntityFrameworkNpgsql ().AddDbContext<ApplicationDbContext> (options => options.UseNpgsql (Configuration.GetConnectionString ("DefaultConnection")));
+
             // Add ASP.NET Identity support
             services.AddIdentity<ApplicationUser, IdentityRole> (
                     opts => {
@@ -59,7 +61,7 @@ namespace Athena {
                     var userManager = serviceScope.ServiceProvider.GetService<UserManager<ApplicationUser>> ();
 
                     // Create the Db if it doesn't exist and applies any pending migration 
-                    dbContext.Database.Migrate ();
+                    // dbContext.Database.Migrate ();
                     // Seed the Db.
                     DbSeeder.Seed (dbContext, roleManager, userManager);
                 }
