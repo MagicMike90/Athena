@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Athena.Data;
 using Athena.ViewModels;
 using Mapster;
@@ -63,10 +64,13 @@ namespace Athena.Controllers {
             quiz.CreatedDate = DateTime.Now;
             quiz.LastModifiedDate = quiz.CreatedDate;
 
-            // Set a temporary author using the Admin user's userId
-            // as user login isn't supported yet: we'll change this later on.
-            quiz.UserId = DbContext.Users.Where (u => u.UserName == "Admin")
-                .FirstOrDefault ().Id;
+            // // Set a temporary author using the Admin user's userId
+            // // as user login isn't supported yet: we'll change this later on.
+            // quiz.UserId = DbContext.Users.Where (u => u.UserName == "Admin")
+            //     .FirstOrDefault ().Id;
+
+            // retrieve the current user's Id
+            quiz.UserId = User.FindFirst (ClaimTypes.NameIdentifier).Value;
 
             // add the new quiz
             DbContext.Quizzes.Add (quiz);
