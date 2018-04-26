@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../quiz.service';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-quiz',
@@ -13,6 +14,7 @@ export class QuizComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
+    private auth: AuthService,
     private quizService: QuizService) {
 
     // create an empty object from the Quiz interface
@@ -39,5 +41,8 @@ export class QuizComponent implements OnInit {
         this.router.navigate(['home']);
       });
     }
+  }
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
   }
 }
