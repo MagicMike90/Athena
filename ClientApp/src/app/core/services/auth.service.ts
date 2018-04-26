@@ -18,7 +18,7 @@ const httpOptions = {
 export class AuthService {
 
   authKey = 'auth';
-  clientId = 'TestMakerFree';
+  clientId = 'Athena';
 
   constructor(private http: HttpClient,
     @Inject(PLATFORM_ID) private platformId: any) {
