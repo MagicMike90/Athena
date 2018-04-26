@@ -47,6 +47,7 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="model">The AnswerViewModel containing the data to insert</param>
         [HttpPost]
+        [Authorize]
         public IActionResult Post ([FromBody] AnswerViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
@@ -74,6 +75,7 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="model">The AnswerViewModel containing the data to update</param>
         [HttpPut]
+        [Authorize]
         public IActionResult Put ([FromBody] AnswerViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
@@ -111,6 +113,7 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="id">The ID of an existing Answer</param>
         [HttpDelete ("{id}")]
+        [Authorize]
         public IActionResult Delete (int id) {
             // retrieve the answer from the Database
             var answer = DbContext.Answers.Where (i => i.Id == id)

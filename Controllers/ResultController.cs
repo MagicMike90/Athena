@@ -47,6 +47,7 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="model">The ResultViewModel containing the data to insert</param>
         [HttpPost]
+        [Authorize]
         public IActionResult Post ([FromBody] ResultViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
@@ -74,6 +75,7 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="model">The ResultViewModel containing the data to update</param>
         [HttpPut]
+        [Authorize]
         public IActionResult Put ([FromBody] ResultViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
@@ -112,6 +114,7 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="id">The ID of an existing Result</param>
         [HttpDelete ("{id}")]
+        [Authorize]
         public IActionResult Delete (int id) {
             // retrieve the result from the Database
             var result = DbContext.Results.Where (i => i.Id == id)
