@@ -4,15 +4,21 @@ using System.Linq;
 using Athena.Data;
 using Athena.ViewModels;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace Athena.Controllers {
-    public class ResultController : BaseApiController
-    {
+    public class ResultController : BaseApiController {
         #region Constructor
-        public ResultController(ApplicationDbContext context)
-            : base(context) { }
+        public ResultController (
+            ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager,
+            IConfiguration configuration
+        ) : base (context, roleManager, userManager, configuration) { }
         #endregion
 
         #region RESTful conventions methods
@@ -21,20 +27,18 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="id">The ID of an existing Result</param>
         /// <returns>the Result with the given {id}</returns>
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            var result = DbContext.Results.Where(i => i.Id == id)
-                .FirstOrDefault();
+        [HttpGet ("{id}")]
+        public IActionResult Get (int id) {
+            var result = DbContext.Results.Where (i => i.Id == id)
+                .FirstOrDefault ();
 
             // handle requests asking for non-existing quizzes
-            if (result == null) return NotFound(new
-            {
-                Error = String.Format("Result ID {0} has not been found", id)
+            if (result == null) return NotFound (new {
+                Error = String.Format ("Result ID {0} has not been found", id)
             });
 
-            return new JsonResult(
-                result.Adapt<ResultViewModel>(),
+            return new JsonResult (
+                result.Adapt<ResultViewModel> (),
                 JsonSettings);
         }
 
@@ -43,14 +47,13 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="model">The ResultViewModel containing the data to insert</param>
         [HttpPost]
-        public IActionResult Post([FromBody]ResultViewModel model)
-        {
+        public IActionResult Post ([FromBody] ResultViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
-            if (model == null) return new StatusCodeResult(500);
+            if (model == null) return new StatusCodeResult (500);
 
             // map the ViewModel to the Model
-            var result = model.Adapt<Result>();
+            var result = model.Adapt<Result> ();
 
             // override those properties 
             //   that should be set from the server-side only
@@ -58,13 +61,12 @@ namespace Athena.Controllers {
             result.LastModifiedDate = result.CreatedDate;
 
             // add the new result
-            DbContext.Results.Add(result);
+            DbContext.Results.Add (result);
             // persist the changes into the Database.
-            DbContext.SaveChanges();
+            DbContext.SaveChanges ();
 
             // return the newly-created Result to the client.
-            return new JsonResult(result.Adapt<ResultViewModel>()
-                , JsonSettings);
+            return new JsonResult (result.Adapt<ResultViewModel> (), JsonSettings);
         }
 
         /// <summary>
@@ -72,20 +74,18 @@ namespace Athena.Controllers {
         /// </summary>
         /// <param name="model">The ResultViewModel containing the data to update</param>
         [HttpPut]
-        public IActionResult Put([FromBody]ResultViewModel model)
-        {
+        public IActionResult Put ([FromBody] ResultViewModel model) {
             // return a generic HTTP Status 500 (Server Error)
             // if the client payload is invalid.
-            if (model == null) return new StatusCodeResult(500);
+            if (model == null) return new StatusCodeResult (500);
 
             // retrieve the result to edit
-            var result = DbContext.Results.Where(q => q.Id ==
-                        model.Id).FirstOrDefault();
+            var result = DbContext.Results.Where (q => q.Id ==
+                model.Id).FirstOrDefault ();
 
             // handle requests asking for non-existing quizzes
-            if (result == null) return NotFound(new
-            {
-                Error = String.Format("Result ID {0} has not been found", model.Id)
+            if (result == null) return NotFound (new {
+                Error = String.Format ("Result ID {0} has not been found", model.Id)
             });
 
             // handle the update (without object-mapping)
@@ -101,49 +101,45 @@ namespace Athena.Controllers {
             result.LastModifiedDate = result.CreatedDate;
 
             // persist the changes into the Database.
-            DbContext.SaveChanges();
+            DbContext.SaveChanges ();
 
             // return the updated Quiz to the client.
-            return new JsonResult(result.Adapt<ResultViewModel>()
-                , JsonSettings);
+            return new JsonResult (result.Adapt<ResultViewModel> (), JsonSettings);
         }
 
         /// <summary>
         /// Deletes the Result with the given {id} from the Database
         /// </summary>
         /// <param name="id">The ID of an existing Result</param>
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
+        [HttpDelete ("{id}")]
+        public IActionResult Delete (int id) {
             // retrieve the result from the Database
-            var result = DbContext.Results.Where(i => i.Id == id)
-                .FirstOrDefault();
+            var result = DbContext.Results.Where (i => i.Id == id)
+                .FirstOrDefault ();
 
             // handle requests asking for non-existing results
-            if (result == null) return NotFound(new
-            {
-                Error = String.Format("Result ID {0} has not been found", id)
+            if (result == null) return NotFound (new {
+                Error = String.Format ("Result ID {0} has not been found", id)
             });
 
             // remove the quiz from the DbContext.
-            DbContext.Results.Remove(result);
+            DbContext.Results.Remove (result);
             // persist the changes into the Database.
-            DbContext.SaveChanges();
+            DbContext.SaveChanges ();
 
             // return an HTTP Status 200 (OK).
-            return new OkResult();
+            return new OkResult ();
         }
         #endregion
 
         // GET api/result/all
-        [HttpGet("All/{quizId}")]
-        public IActionResult All(int quizId)
-        {
+        [HttpGet ("All/{quizId}")]
+        public IActionResult All (int quizId) {
             var results = DbContext.Results
-                .Where(q => q.QuizId == quizId)
-                .ToArray();
-            return new JsonResult(
-                results.Adapt<ResultViewModel[]>(),
+                .Where (q => q.QuizId == quizId)
+                .ToArray ();
+            return new JsonResult (
+                results.Adapt<ResultViewModel[]> (),
                 JsonSettings);
         }
     }

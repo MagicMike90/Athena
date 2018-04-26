@@ -1,4 +1,7 @@
+using System;
+using System.Text;
 using Athena.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +9,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Athena {
     public class Startup {
@@ -24,16 +28,6 @@ namespace Athena {
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            // You use this method when using dependency injection in your application
-            // Add EntityFramework support for SqlServer.
-            services.AddEntityFrameworkSqlServer ();
-
-            // Add ApplicationDbContext.
-            // services.AddDbContext<ApplicationDbContext> (options =>
-            //     // options.UseSqlServer (Configuration.GetConnectionString ("DefaultConnection"))
-            //     options.UseSqlite ("Data Source=quiz.db")
-            // );
-
             services.AddEntityFrameworkNpgsql ().AddDbContext<ApplicationDbContext> (options => options.UseNpgsql (Configuration.GetConnectionString ("DefaultConnection")));
 
             // Add ASP.NET Identity support
@@ -46,6 +40,32 @@ namespace Athena {
                         opts.Password.RequiredLength = 7;
                     })
                 .AddEntityFrameworkStores<ApplicationDbContext> ();
+
+            // Add Authentication with JWT Tokens
+            // services.AddAuthentication (opts => {
+            //         opts.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            //         opts.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //         opts.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //     })
+            //     .AddJwtBearer (cfg => {
+            //         cfg.RequireHttpsMetadata = false;
+            //         cfg.SaveToken = true;
+            //         cfg.TokenValidationParameters = new TokenValidationParameters () {
+            //             // standard configuration
+            //             ValidIssuer = Configuration["Auth:Jwt:Issuer"],
+            //             IssuerSigningKey = new SymmetricSecurityKey (
+            //             Encoding.UTF8.GetBytes (Configuration["Auth:Jwt:Key"])),
+            //             ValidAudience = Configuration["Auth:Jwt:Audience"],
+            //             ClockSkew = TimeSpan.Zero,
+
+            //             // security switches
+            //             RequireExpirationTime = true,
+            //             ValidateIssuer = true,
+            //             ValidateIssuerSigningKey = true,
+            //             ValidateAudience = true
+            //         };
+            //         cfg.IncludeErrorDetails = true;
+            //     });
 
         }
 

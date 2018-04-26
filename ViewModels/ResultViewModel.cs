@@ -1,17 +1,14 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Newtonsoft.Json;
 
-namespace Athena.ViewModels
-{
-    [JsonObject(MemberSerialization.OptOut)]
-    public class ResultViewModel
-    {
+namespace Athena.ViewModels {
+    [JsonObject (MemberSerialization.OptOut)]
+    public class ResultViewModel {
         #region Constructor
-        public ResultViewModel()
-        {
+        public ResultViewModel () {
 
         }
         #endregion
@@ -23,10 +20,13 @@ namespace Athena.ViewModels
         public int? MinValue { get; set; }
         public int? MaxValue { get; set; }
         public string Notes { get; set; }
-        [DefaultValue(0)]
+
+        [DefaultValue (0)]
         public int Type { get; set; }
-        [DefaultValue(0)]
+
+        [DefaultValue (0)]
         public int Flags { get; set; }
+
         [JsonIgnore]
         public DateTime CreatedDate { get; set; }
         public DateTime LastModifiedDate { get; set; }

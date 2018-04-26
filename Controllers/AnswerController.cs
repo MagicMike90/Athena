@@ -4,13 +4,21 @@ using System.Linq;
 using Athena.Data;
 using Athena.ViewModels;
 using Mapster;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace Athena.Controllers {
     public class AnswerController : BaseApiController {
         #region Constructor
-        public AnswerController (ApplicationDbContext context) : base (context) { }
+        public AnswerController (
+            ApplicationDbContext context,
+            RoleManager<IdentityRole> roleManager,
+            UserManager<ApplicationUser> userManager,
+            IConfiguration configuration
+        ) : base (context, roleManager, userManager, configuration) { }
         #endregion
 
         #region RESTful conventions methods

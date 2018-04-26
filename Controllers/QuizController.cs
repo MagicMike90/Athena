@@ -4,13 +4,19 @@ using System.Linq;
 using Athena.Data;
 using Athena.ViewModels;
 using Mapster;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 
 namespace Athena.Controllers {
     public class QuizController : BaseApiController {
         #region Constructor
-        public QuizController (ApplicationDbContext context) : base (context) { }
+        public QuizController (ApplicationDbContext context,
+                RoleManager<IdentityRole> roleManager,
+                UserManager<ApplicationUser> userManager,
+                IConfiguration configuration):
+            base (context, roleManager, userManager, configuration) { }
         #endregion
 
         #region RESTful conventions methods
