@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -14,6 +13,7 @@ import { QuizModule } from './quiz/quiz.module';
 import { isPlatformBrowser, APP_BASE_HREF } from '@angular/common';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LoginModule } from './login/login.module';
+import { InterceptorService } from './core/services/interceptor.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,6 @@ import { LoginModule } from './login/login.module';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'home', pathMatch: 'full' },
