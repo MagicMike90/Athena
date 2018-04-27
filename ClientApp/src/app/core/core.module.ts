@@ -9,6 +9,8 @@ import { AuthRequestInterceptService } from './services/auth.request.intercept.s
 import { AuthResponseInterceptService } from './services/auth.response.intercept.service';
 
 import { RegisterService } from './services/register.service';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   imports: [
@@ -18,8 +20,10 @@ import { RegisterService } from './services/register.service';
   ],
   declarations: [
     NavMenuComponent,
+    NavBarComponent,
+    BreadcrumbComponent,
   ],
-  exports: [NavMenuComponent],
+  exports: [NavMenuComponent, NavBarComponent, BreadcrumbComponent],
   providers: [AuthService,
     {
       provide: HTTP_INTERCEPTORS,

@@ -12,12 +12,5 @@ export class NavMenuComponent {
 
   constructor(public auth: AuthService,
     private router: Router) {
-
-  }
-  logout() {
-    // logs out the user, then redirects him to Home View.
-    if (this.auth.logout()) {
-      this.router.navigate(['home']);
-    }
   }
 }
