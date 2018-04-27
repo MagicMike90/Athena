@@ -57,15 +57,10 @@ export class AuthResponseInterceptService implements HttpInterceptor {
 
             // re-submit the failed request
             const http = this.injector.get(HttpClient);
-            // return http.request(this.currentRequest).subscribe(
-            //   result => {
-            //     // do something
-            //   }, error => console.error(error)
-            // );
             return http.request(this.currentRequest).pipe(
-                retry(3), // retry a failed request up to 3 times
-                catchError(val => of(`I caught: ${val}`)) // then handle the error
-              );
+              retry(3), // retry a failed request up to 3 times
+              catchError(val => of(`I caught: ${val}`)) // then handle the error
+            );
 
           } else {
             // refresh token failed
@@ -75,7 +70,7 @@ export class AuthResponseInterceptService implements HttpInterceptor {
             this.auth.logout();
 
             // redirect to login page
-            // this.router.navigate(['login']);
+            this.router.navigate(['login']);
           }
         }, error => console.log(error));
       }
