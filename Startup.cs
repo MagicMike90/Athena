@@ -28,7 +28,8 @@ namespace Athena {
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            services.AddEntityFrameworkNpgsql ().AddDbContext<ApplicationDbContext> (options => options.UseNpgsql (Configuration.GetConnectionString ("DefaultConnection")));
+            services.AddEntityFrameworkNpgsql ().AddDbContext<ApplicationDbContext> (
+                options => options.UseNpgsql (Configuration.GetConnectionString ("DefaultConnection")));
 
             // Add ASP.NET Identity support
             services.AddIdentity<ApplicationUser, IdentityRole> (

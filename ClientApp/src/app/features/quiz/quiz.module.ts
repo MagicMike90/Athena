@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ShareModule } from '../share/share.module';
+import { ShareModule } from '../../share/share.module';
 
 import { QuizRoutingModule } from './quiz-routing.module';
 import { QuizListComponent } from './quiz-list/quiz-list.component';

@@ -8,11 +8,12 @@ import { AboutComponent } from './about/about.component';
 
 import { CoreModule } from './core/core.module';
 import { ShareModule } from './share/share.module';
-import { QuizModule } from './quiz/quiz.module';
+import { QuizModule } from './features/quiz/quiz.module';
 
 import { isPlatformBrowser, APP_BASE_HREF } from '@angular/common';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
-import { LoginModule } from './login/login.module';
+
+import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 
 @NgModule({
@@ -21,6 +22,7 @@ import { RegisterComponent } from './register/register.component';
     HomeComponent,
     AboutComponent,
     PagenotfoundComponent,
+    LoginComponent,
     RegisterComponent
   ],
   imports: [
@@ -29,13 +31,13 @@ import { RegisterComponent } from './register/register.component';
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'home', component: HomeComponent },
       { path: 'about', component: AboutComponent },
+      { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: '**', component: PagenotfoundComponent }
     ]),
     CoreModule,
     ShareModule,
     QuizModule,
-    LoginModule
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' }
