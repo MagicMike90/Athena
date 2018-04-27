@@ -193,9 +193,10 @@ namespace Athena.Controllers {
         [HttpGet ("Random/{num:int?}")]
         public IActionResult Random (int num = 10) {
             var random = DbContext.Quizzes
-                .OrderBy (q => Guid.NewGuid ())
-                .Take (num)
-                .ToArray ();
+            .OrderBy (q => Guid.NewGuid ())
+            .Take (num)
+            .ToArray ();
+                
             return new JsonResult (
                 random.Adapt<QuizViewModel[]> (),
                 JsonSettings);

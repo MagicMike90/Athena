@@ -13,7 +13,6 @@ import { QuizModule } from './quiz/quiz.module';
 import { isPlatformBrowser, APP_BASE_HREF } from '@angular/common';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { LoginModule } from './login/login.module';
-import { InterceptorService } from './core/services/interceptor.service';
 
 @NgModule({
   declarations: [

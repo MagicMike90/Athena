@@ -4,7 +4,8 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { AuthService } from './services/auth.service';
-import { InterceptorService } from './services/interceptor.service';
+import { AuthRequestInterceptService } from './services/auth.request.intercept.service';
+import { AuthResponseInterceptService } from './services/auth.response.intercept.service';
 
 @NgModule({
   imports: [
@@ -19,7 +20,12 @@ import { InterceptorService } from './services/interceptor.service';
   providers: [AuthService,
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
+      useClass: AuthRequestInterceptService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthResponseInterceptService,
       multi: true
     }]
 })

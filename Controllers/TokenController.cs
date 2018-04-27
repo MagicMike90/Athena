@@ -115,7 +115,7 @@ namespace Athena.Controllers {
                 // ... and send it to the client
                 return Json (response);
             } catch (Exception ex) {
-                return new UnauthorizedResult ();
+                throw ex;
             }
         }
         private Token CreateRefreshToken (string clientId, string userId) {

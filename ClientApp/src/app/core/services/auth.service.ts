@@ -1,5 +1,5 @@
-import { EventEmitter, Inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { EventEmitter, Inject, Injectable, PLATFORM_ID, Optional } from '@angular/core';
+import { APP_BASE_HREF, isPlatformBrowser } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
@@ -16,17 +16,18 @@ const httpOptions = {
 
 @Injectable()
 export class AuthService {
-
+  private authTokenUrl = 'api/token/auth';  // URL to web api
   authKey = 'auth';
   clientId = 'Athena';
 
   constructor(private http: HttpClient,
+    @Optional() @Inject(APP_BASE_HREF) origin: string,
     @Inject(PLATFORM_ID) private platformId: any) {
+    this.authTokenUrl = `${origin}${this.authTokenUrl}`;
   }
 
   // performs the login
   login(username: string, password: string): Observable<TokenResponse> {
-    const url = 'api/token/auth';
     const data = {
       username: username,
       password: password,
@@ -37,11 +38,30 @@ export class AuthService {
       scope: 'offline_access profile email'
     };
 
+    return this.getAuthFromServer(this.authTokenUrl, data);
+  }
+  // try to refresh token
+  refreshToken(): Observable<TokenResponse> {
+    const data = {
+      client_id: this.clientId,
+      // required when signing up with username/password
+      grant_type: 'refresh_token',
+      refresh_token: this.getAuth().refresh_token,
+      // space-separated list of scopes for which the token is issued
+      scope: 'offline_access profile email'
+    };
+
+    return this.getAuthFromServer(this.authTokenUrl, data);
+  }
+
+  // retrieve the access & refresh tokens from the server
+  getAuthFromServer(url: string, data: any): Observable<TokenResponse> {
     return this.http.post<TokenResponse>(url, data, httpOptions).pipe(
       tap(token => this.setAuth(token)),
       catchError(handleError<TokenResponse>('getToken'))
     );
   }
+
 
   // performs the logout
   logout(): boolean {
