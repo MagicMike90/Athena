@@ -7,7 +7,7 @@ import {
 import { AuthService } from '../services/auth.service';
 
 @Injectable()
-export class AuthGuardService {
+export class AuthGuardService implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -18,7 +18,7 @@ export class AuthGuardService {
   }
 
   checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn) { return true; }
+    if (this.authService.isLoggedIn()) { return true; }
 
     // Navigate to the login page with extras
     this.router.navigate(['/login']);
