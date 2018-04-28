@@ -24,8 +24,8 @@ export class QuizComponent implements OnInit {
     if (id) {
       quizService.getQuiz(id).subscribe(quiz => this.quiz = quiz);
     } else {
-      console.log('Invalid id: routing back to home...');
-      this.router.navigate(['home']);
+      console.log('Invalid id: routing back to dashboard...');
+      this.router.navigate(['dashboard']);
     }
   }
   ngOnInit() {
@@ -38,7 +38,7 @@ export class QuizComponent implements OnInit {
     if (confirm('Do you really want to delete this quiz?')) {
       this.quizService.deleteQuiz(this.quiz).subscribe(res => {
         console.log('Quiz ' + this.quiz.Id + ' has been deleted.');
-        this.router.navigate(['home']);
+        this.router.navigate(['dashboard']);
       });
     }
   }

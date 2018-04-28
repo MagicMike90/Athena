@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
           + this.authService.getAuth().token
         );
 
-        this.router.navigate(['home']);
+        this.router.navigate(['dashboard']);
       },
         err => {
           // login failed
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['home']);
+    this.router.navigate(['login']);
   }
 
   // retrieve a FormControl

@@ -17,7 +17,7 @@ export class NavBarComponent implements OnInit {
   logout() {
     // logs out the user, then redirects him to Home View.
     if (this.auth.logout()) {
-      this.router.navigate(['home']);
+      this.router.navigate(['login']);
     }
   }
 }

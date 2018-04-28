@@ -78,25 +78,19 @@ export class QuizEditComponent implements OnInit {
 
       this.quizService.updateQuiz(tempQuiz).subscribe(res => {
         console.log('Quiz ' + res + ' has been updated.');
-        // this.router.navigate(['home']);
         this.onBack();
       });
 
     } else {
       this.quizService.addQuiz(tempQuiz).subscribe(res => {
         console.log('Quiz ' + res + ' has been created.');
-        // this.router.navigate(['home']);
         this.onBack();
       });
     }
   }
   onBack(): void {
-    // this.location.back();
-    this.router.navigate(['home']);
+    this.router.navigate(['dashboard']);
   }
-  // onBack() {
-  //   this.router.navigate(['home']);
-  // }
   // retrieve a FormControl
   getFormControl(name: string) {
     return this.form.get(name);

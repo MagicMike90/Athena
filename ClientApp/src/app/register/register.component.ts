@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['home']);
+    this.router.navigate(['dashboard']);
   }
 
   // custom validator to compare
