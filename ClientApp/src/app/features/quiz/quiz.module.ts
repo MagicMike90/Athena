@@ -4,7 +4,7 @@ import { ShareModule } from '../../shared/shared.module';
 import { QuizRoutingModule } from './quiz-routing.module';
 import { QuizListComponent } from './quiz-list/quiz-list.component';
 import { QuizService } from './quiz.service';
-import { QuizComponent } from './quiz/quiz.component';
+import { QuizComponent } from './quiz.component';
 
 import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 import { QuestionModule } from '../question/question.module';

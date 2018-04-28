@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { QuizComponent } from './quiz/quiz.component';
+import { QuizComponent } from './quiz.component';
 import { QuizEditComponent } from './quiz-edit/quiz-edit.component';
 
 
