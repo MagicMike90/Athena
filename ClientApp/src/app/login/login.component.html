@@ -33,18 +33,32 @@
     </a>
   </div>
 </div> -->
-<div class="login-page text-center">
-  <form class="form-signin" [formGroup]="form" (ngSubmit)="onSubmit()">
+<div class="login-page">
+  <form class="form-signin text-center" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div *ngIf="form.errors?.auth" class="error-panel help-block">
       {{form.errors.auth}}
     </div>
     <img class="mb-4" src="https://getbootstrap.com/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">
     <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="email" id="inputEmail" formControlName="Username" class="form-control" placeholder="Email address" required
-      autofocus>
-    <label for="inputPassword" class="sr-only">Password</label>
-    <input type="password" id="inputPassword" formControlName="Password" class="form-control" placeholder="Password" required>
+    <!-- <label for="inputEmail" class="sr-only">Email address</label>
+                <input type="email" id="inputEmail" formControlName="Username" class="form-control" placeholder="Email address" required
+                  autofocus> -->
+    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
+      <input type="text" required formControlName="Username" class="form-control" placeholder="Username or Email address" />
+      <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      <span *ngIf="hasError('Username')" class="help-block">
+        Please insert a valid username or e-mail address.
+      </span>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
+      <input type="password" required formControlName="Password" class="form-control" placeholder="Password" />
+      <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+      <span *ngIf="hasError('Password')" class="help-block">
+        Please insert a password.
+      </span>
+    </div>
+    <!-- <label for="inputPassword" class="sr-only">Password</label>
+                <input type="password" id="inputPassword" formControlName="Password" class="form-control" placeholder="Password" required> -->
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" value="remember-me"> Remember me
@@ -52,10 +66,12 @@
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <div class="login-link">
-      <a href="#">
+      <a [routerLink]="['/register']">
         Forgot the password?
       </a>
     </div>
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
   </form>
+
+
 </div>

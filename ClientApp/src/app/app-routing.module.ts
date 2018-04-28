@@ -14,7 +14,6 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'about', component: AboutComponent },
 
     // App routes goes here here
     {
@@ -23,6 +22,7 @@ const appRoutes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: 'dashboard', component: DashboardComponent },
+            { path: 'about', component: AboutComponent },
         ]
     },
     { path: '**', component: PagenotfoundComponent }
