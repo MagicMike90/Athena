@@ -7,10 +7,10 @@ import { RegisterComponent } from './register/register.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 
-import { AuthGuardService } from './core/guards/auth-guard.service';
+import { AuthGuard } from './core/guards/auth.guard';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'dashboard', pathMatch: 'full', canActivate: [AuthGuardService] },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
     // {
     //     path: '',
     //     component: SiteLayoutComponent,
@@ -29,10 +29,14 @@ const appRoutes: Routes = [
     //         { path: 'profile', component: ProfileComponent }
     //     ]
     // },
-    { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuardService] },
-    { path: 'about', component: AboutComponent },
-    { path: 'login', component: LoginComponent },
+    {
+        path: '', canActivate: [AuthGuard], children: [
+            { path: 'dashboard', component: DashboardComponent },
+            { path: 'about', component: AboutComponent },
+        ]
+    },
     { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent },
     { path: '**', component: PagenotfoundComponent }
 ];
 

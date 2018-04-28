@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
 import { DashboardModule } from './features/dashboard/dashboard.module';
+import { QuizModule } from './features/quiz/quiz.module';
 
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';

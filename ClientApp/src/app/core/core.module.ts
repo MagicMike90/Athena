@@ -7,7 +7,7 @@ import { AuthService } from './services/auth.service';
 import { AuthRequestInterceptService } from './services/auth.request.intercept.service';
 import { AuthResponseInterceptService } from './services/auth.response.intercept.service';
 import { RegisterService } from './services/register.service';
-import { AuthGuardService } from './guards/auth-guard.service';
+import { AuthGuard } from './guards/auth.guard';
 
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
@@ -45,7 +45,7 @@ function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
       multi: true
     },
     RegisterService,
-    AuthGuardService
+    AuthGuard
   ]
 })
 export class CoreModule {
