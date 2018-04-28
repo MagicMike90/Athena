@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 
 import { DashboardModule } from './features/dashboard/dashboard.module';
-import { QuizModule } from './features/quiz/quiz.module';
+
 
 import { AboutComponent } from './about/about.component';
 import { LoginComponent } from './login/login.component';
@@ -25,15 +25,16 @@ import { AppRoutingModule } from './app-routing.module';
     AboutComponent,
     LoginComponent,
     RegisterComponent,
-    PagenotfoundComponent
+    PagenotfoundComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     FormsModule,
     ReactiveFormsModule,
-    AppRoutingModule,
+
     CoreModule,
     DashboardModule,
+    AppRoutingModule,
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/' },

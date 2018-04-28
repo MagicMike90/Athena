@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
+import { AppLayoutComponent } from './components/app-layout/app-layout.component';
 
 
 function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
@@ -27,6 +28,7 @@ function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
   declarations: [
     NavMenuComponent,
     NavBarComponent,
+    AppLayoutComponent,
   ],
   exports: [
     NavMenuComponent,
