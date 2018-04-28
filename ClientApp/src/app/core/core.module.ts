@@ -2,28 +2,36 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AuthService } from './services/auth.service';
 import { AuthRequestInterceptService } from './services/auth.request.intercept.service';
 import { AuthResponseInterceptService } from './services/auth.response.intercept.service';
-
 import { RegisterService } from './services/register.service';
 
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [
     NavMenuComponent,
     NavBarComponent,
   ],
-  exports: [NavMenuComponent, NavBarComponent],
-  providers: [AuthService,
+  exports: [
+    NavMenuComponent,
+    NavBarComponent,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [
+    AuthService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthRequestInterceptService,
@@ -34,6 +42,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
       useClass: AuthResponseInterceptService,
       multi: true
     },
-    RegisterService]
+    RegisterService
+  ]
 })
 export class CoreModule { }

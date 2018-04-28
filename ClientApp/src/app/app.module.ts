@@ -5,7 +5,6 @@ import { isPlatformBrowser, APP_BASE_HREF } from '@angular/common';
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
-import { ShareModule } from './share/share.module';
 import { QuizModule } from './features/quiz/quiz.module';
 
 
@@ -16,7 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { PagenotfoundComponent } from './pagenotfound/pagenotfound.component';
 
-import { AppRoutingModule } from './app.routing.module';
+import { AppRoutingModule } from './app-routing.module';
 
 
 
@@ -33,7 +32,6 @@ import { AppRoutingModule } from './app.routing.module';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     AppRoutingModule,
     CoreModule,
-    ShareModule,
     QuizModule,
   ],
   providers: [
