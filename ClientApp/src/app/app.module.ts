@@ -1,13 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, PLATFORM_ID, APP_ID, Inject } from '@angular/core';
 import { isPlatformBrowser, APP_BASE_HREF } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 
 import { CoreModule } from './core/core.module';
 import { QuizModule } from './features/quiz/quiz.module';
-
-
 
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
@@ -30,6 +29,8 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     CoreModule,
     QuizModule,
