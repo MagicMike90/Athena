@@ -51,16 +51,16 @@ export class RegisterComponent implements OnInit {
       if (user) {
         console.log('User ' + user.Username + ' has been created.');
         // redirect to login page
-        this.router.navigate(['login']);
+        this.router.navigate(['user/login']);
       } else {
         // registration failed
         this.form.setErrors({
           'register': 'User registration failed.'
         });
       }
-      console.log('User ' + user.Username + ' has been created.');
-      // redirect to login page
-      this.router.navigate(['login']);
+      // console.log('User ' + user.Username + ' has been created.');
+      // // redirect to login page
+      // this.router.navigate(['user/login']);
     }, error => console.log(error));
   }
 

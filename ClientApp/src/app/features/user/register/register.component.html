@@ -4,27 +4,19 @@
   </div>
 
   <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
-    <input type="text" required formControlName="Username" class="form-control" placeholder="Insert username..." />
+    <input type="text" required autofocus formControlName="Username" class="form-control" placeholder="Insert username..." />
     <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
     <div *ngIf="hasError('Username')" class="invalid-feedback">
       Please insert a valid username.
     </div>
   </div>
   <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Email') }">
-    <input type="email" required autofocus formControlName="Email" class="form-control" placeholder="Insert e-mail..." />
+    <input type="email" required formControlName="Email" class="form-control" placeholder="Insert e-mail..." />
     <span *ngIf="hasError('Email')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
     <div *ngIf="hasError('Email')" class="invalid-feedback">
       Please insert a valid e-mail address.
     </div>
   </div>
-  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
-    <input type="password" required formControlName="Password" class="form-control" placeholder="Password" />
-    <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-    <div *ngIf="hasError('Password')" class="invalid-feedback">
-      Please insert a password.
-    </div>
-  </div>
-
   <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
     <input type="password" required formControlName="Password" class="form-control" placeholder="Insert password..." />
     <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
