@@ -12,6 +12,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { AppLayoutComponent } from './components/app-layout/app-layout.component';
+import { SiteLayoutComponent } from './components/site-layout/site-layout.component';
 
 
 function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
@@ -29,6 +30,7 @@ function throwIfAlreadyLoaded(parentModule: any, moduleName: string) {
     NavMenuComponent,
     NavBarComponent,
     AppLayoutComponent,
+    SiteLayoutComponent,
   ],
   exports: [
     NavMenuComponent,

@@ -1,45 +1,38 @@
-<div class="login-page">
-  <div class="text-center">
-    <img class="mb-4" src="/assets/angular.svg" alt="" width="72" height="72">
+<form class="form-signin" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngIf="form.errors?.auth" class="error-panel invalid-feedback">
+    {{form.errors.auth}}
   </div>
-  <form class="form-signin" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div *ngIf="form.errors?.auth" class="error-panel invalid-feedback">
-      {{form.errors.auth}}
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
+    <input type="text" required formControlName="Username" class="form-control" placeholder="Username or Email address" />
+    <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('Username')" class="invalid-feedback">
+      Please insert a valid username or e-mail address.
     </div>
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
-      <input type="text" required formControlName="Username" class="form-control" placeholder="Username or Email address" />
-      <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <div *ngIf="hasError('Username')" class="invalid-feedback">
-        Please insert a valid username or e-mail address.
-      </div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
+    <input type="password" required formControlName="Password" class="form-control" placeholder="Password" />
+    <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('Password')" class="invalid-feedback">
+      Please insert a password.
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
-      <input type="password" required formControlName="Password" class="form-control" placeholder="Password" />
-      <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <div *ngIf="hasError('Password')" class="invalid-feedback">
-        Please insert a password.
-      </div>
-    </div>
-    <!-- <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" formControlName="Password" class="form-control" placeholder="Password" required> -->
+  </div>
+  <div class="d-flex justify-content-between">
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" value="remember-me"> Remember me
       </label>
     </div>
-
-    <div class="form-group">
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </div>
-
     <div class="login-link">
-      <a [routerLink]="['/register']">
-        Forgot the password?
+      <a [routerLink]="['/user/register']">
+        Forgot password
       </a>
     </div>
-    <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
-  </form>
+  </div>
 
-
-</div>
+  <div class="form-group">
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+  </div>
+  <div>Or
+    <a [routerLink]="['/user/register']">Sign up</a>
+  </div>
+</form>
