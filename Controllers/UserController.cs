@@ -49,21 +49,24 @@ namespace Athena.Controllers {
             };
 
             // Add the user to the Db with the choosen password
-            await UserManager.CreateAsync (user, model.Password);
+            var result = await UserManager.CreateAsync (user, model.Password);
 
-            // Assign the user to the 'RegisteredUser' role.
-            await UserManager.AddToRoleAsync (user, "RegisteredUser");
+            if (result.Succeeded) {
+                // Assign the user to the 'RegisteredUser' role.
+                await UserManager.AddToRoleAsync (user, "RegisteredUser");
+                
+                // Remove Lockout and E-Mail confirmation
+                user.EmailConfirmed = true;
+                user.LockoutEnabled = false;
 
-            // Remove Lockout and E-Mail confirmation
-            user.EmailConfirmed = true;
-            user.LockoutEnabled = false;
+                // persist the changes into the Database.
+                DbContext.SaveChanges ();
 
-            // persist the changes into the Database.
-            DbContext.SaveChanges ();
-
-            // return the newly-created User to the client.
-            return Json (user.Adapt<UserViewModel> (),
-                JsonSettings);
+                // return the newly-created User to the client.
+                return Json (user.Adapt<UserViewModel> (),
+                    JsonSettings);
+            }
+            return BadRequest (result.Errors);
         }
         #endregion
     }

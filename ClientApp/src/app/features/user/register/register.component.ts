@@ -49,7 +49,8 @@ export class RegisterComponent implements OnInit {
 
     this.registerService.addUser(tempUser).subscribe(user => {
       if (user) {
-        console.log('User ' + user.Username + ' has been created.');
+        console.log(user);
+        // console.log('User ' + user.Username + ' has been created.');
         // redirect to login page
         this.router.navigate(['user/login']);
       } else {
