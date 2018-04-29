@@ -1,54 +1,57 @@
-<div class="login-container">
-  <img id="login-img" class="login-img" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
-  <h2 class="login-title">{{title}}</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="login-form">
-    <div *ngIf="form.errors?.auth" class="error-panel help-block">
-      {{form.errors.register}}
+<form class="form-signin" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div *ngIf="form.errors?.auth" class="error-panel invalid-feedback">
+    {{form.errors.auth}}
+  </div>
+
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
+    <input type="text" required formControlName="Username" class="form-control" placeholder="Insert username..." />
+    <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('Username')" class="invalid-feedback">
+      Please insert a valid username.
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Username') }">
-      <input type="text" required autofocus formControlName="Username" class="form-control" placeholder="Insert username..." />
-      <span *ngIf="hasError('Username')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <div *ngIf="hasError('Username')" class="invalid-feedback">
-        Please insert a valid username.
-      </div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Email') }">
+    <input type="email" required autofocus formControlName="Email" class="form-control" placeholder="Insert e-mail..." />
+    <span *ngIf="hasError('Email')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('Email')" class="invalid-feedback">
+      Please insert a valid e-mail address.
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Email') }">
-      <input type="text" required autofocus formControlName="Email" class="form-control" placeholder="Insert e-mail..." />
-      <span *ngIf="hasError('Email')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <div *ngIf="hasError('Email')" class="invalid-feedback">
-        Please insert a valid e-mail address.
-      </div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
+    <input type="password" required formControlName="Password" class="form-control" placeholder="Password" />
+    <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('Password')" class="invalid-feedback">
+      Please insert a password.
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
-      <input type="password" required formControlName="Password" class="form-control" placeholder="Insert password..." />
-      <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <div *ngIf="hasError('Password')" class="invalid-feedback">
-        Please insert a valid password.
-      </div>
+  </div>
+
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('Password') }">
+    <input type="password" required formControlName="Password" class="form-control" placeholder="Insert password..." />
+    <span *ngIf="hasError('Password')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('Password')" class="invalid-feedback">
+      Please insert a valid password.
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('PasswordConfirm') }">
-      <input type="password" required formControlName="PasswordConfirm" class="form-control" placeholder="Repeat the password..."
-      />
-      <span *ngIf="hasError('PasswordConfirm')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <div *ngIf="hasError('PasswordConfirm')" class="invalid-feedback">
-        Password and confirm password don't match.
-      </div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('PasswordConfirm') }">
+    <input type="password" required formControlName="PasswordConfirm" class="form-control" placeholder="Repeat the password..."
+    />
+    <span *ngIf="hasError('PasswordConfirm')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('PasswordConfirm')" class="invalid-feedback">
+      Password and confirm password don't match.
     </div>
-    <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('DisplayName') }">
-      <input type="text" required autofocus formControlName="DisplayName" class="form-control" placeholder="Choose a Display Name..."
-      />
-      <span *ngIf="hasError('DisplayName')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
-      <div *ngIf="hasError('DisplayName')" class="invalid-feedback">
-        Please insert a valid display name.
-      </div>
+  </div>
+  <div class="form-group" [ngClass]="{ 'has-error has-feedback' : hasError('DisplayName') }">
+    <input type="text" required autofocus formControlName="DisplayName" class="form-control" placeholder="Choose a Display Name..."
+    />
+    <span *ngIf="hasError('DisplayName')" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+    <div *ngIf="hasError('DisplayName')" class="invalid-feedback">
+      Please insert a valid display name.
     </div>
-    <div class="text-center">
-      <button type="submit" [disabled]="form.invalid" class="btn btn-md btn-success btn-signin">
-        Register
-      </button>
-      <button type="submit" (click)="onBack()" class="btn btn-md btn-default">
-        Cancel
-      </button>
-    </div>
-  </form>
-</div>
+  </div>
+
+
+  <div class="form-group">
+    <button [disabled]="form.invalid" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <a [routerLink]="['/user/login']">Already have a account?</a>
+  </div>
+</form>
