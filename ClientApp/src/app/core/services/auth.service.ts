@@ -17,6 +17,8 @@ const httpOptions = {
 @Injectable()
 export class AuthService {
   private authTokenUrl = 'api/token/auth';  // URL to web api
+  private facebookTokenUrl = 'api/token/facebook';
+
   authKey = 'auth';
   clientId = 'Athena';
 
@@ -24,6 +26,7 @@ export class AuthService {
     @Optional() @Inject(APP_BASE_HREF) origin: string,
     @Inject(PLATFORM_ID) private platformId: any) {
     this.authTokenUrl = `${origin}${this.authTokenUrl}`;
+    this.facebookTokenUrl = `${origin}${this.facebookTokenUrl}`;
   }
 
   // performs the login
@@ -39,6 +42,13 @@ export class AuthService {
     };
 
     return this.getAuthFromServer(this.authTokenUrl, data);
+  }
+
+  facebookLogin(data): Observable<TokenResponse> {
+    return this.http.post<TokenResponse>(this.facebookTokenUrl, data, httpOptions).pipe(
+      tap((newuser: TokenResponse) => console.log('Login successful.')),
+      catchError(handleError<TokenResponse>('facebookLogin'))
+    );
   }
   // try to refresh token
   refreshToken(): Observable<TokenResponse> {
