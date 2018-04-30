@@ -22,8 +22,7 @@ export class FacebookLoginComponent implements OnInit {
     private authService: AuthService,
     // inject the local zone
     private zone: NgZone,
-    @Inject(PLATFORM_ID) private platformId: any,
-    @Inject('BASE_URL') private baseUrl: string) {
+    @Inject(PLATFORM_ID) private platformId: Object) {
   }
 
   ngOnInit() {
@@ -44,9 +43,9 @@ export class FacebookLoginComponent implements OnInit {
         // unable to find the local references
         this.zone.run(() => {
           FB.init({
-            appId: '559335314407110',
+            appId: '1535777516721739',
             xfbml: true,
-            version: 'v2.10'
+            version: 'v2.12'
           });
           FB.AppEvents.logPageView();
 
@@ -67,11 +66,11 @@ export class FacebookLoginComponent implements OnInit {
 
       // Load the SDK js library (only once)
       (function (d, s, id) {
-        const js, fjs = d.getElementsByTagName(s)[0];
+        const fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) { return; }
-        js = d.createElement(s); js.id = id;
-        (<any>js).src = '//connect.facebook.net/en_US/sdk.js';
-        fjs.parentNode!.insertBefore(js, fjs);
+        const js = d.createElement(s); js.id = id;
+        (<any>js).src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=1535777516721739&autoLogAppEvents=1';
+        fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
 
     } else {
@@ -90,7 +89,7 @@ export class FacebookLoginComponent implements OnInit {
     }
   }
 
-  // this method will be executed 
+  // this method will be executed
   // upon the user FB SDK Auth roundtrip completion
   // to create/login the local user
   onConnect(accessToken: string) {

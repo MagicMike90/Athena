@@ -99,7 +99,7 @@ namespace Athena.Controllers {
                         };
 
                         // Add the user to the Db with the choosen password
-                        var create_result = await UserManager.CreateAsync (user, model.Password);
+                        var create_result = await UserManager.CreateAsync (user, DataHelper.GenerateRandomPassword ());
 
                         if (create_result.Succeeded) {
                             // Assign the user to the 'RegisteredUser' role.
