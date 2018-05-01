@@ -66,7 +66,12 @@ namespace Athena {
                         ValidateAudience = true
                     };
                     cfg.IncludeErrorDetails = true;
-                });
+                }) 
+                // Add Facebook support
+                .AddFacebook (opts => {
+                    opts.AppId = Configuration["Auth:Facebook:AppId"];
+                    opts.AppSecret = Configuration["Auth:Facebook:AppSecret"];
+                });;
 
         }
 
