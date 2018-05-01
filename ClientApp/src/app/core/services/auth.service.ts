@@ -18,6 +18,7 @@ const httpOptions = {
 export class AuthService {
   private authTokenUrl = 'api/token/auth';  // URL to web api
   private facebookTokenUrl = 'api/token/facebook';
+  private externalTokenUrl = 'api/Token/ExternalLogin/';
 
   authKey = 'auth';
   clientId = 'Athena';
@@ -27,6 +28,7 @@ export class AuthService {
     @Inject(PLATFORM_ID) private platformId: any) {
     this.authTokenUrl = `${origin}${this.authTokenUrl}`;
     this.facebookTokenUrl = `${origin}${this.facebookTokenUrl}`;
+    this.externalTokenUrl = `${origin}${this.externalTokenUrl}`;
   }
 
   // performs the login
@@ -48,6 +50,13 @@ export class AuthService {
     return this.http.post<TokenResponse>(this.facebookTokenUrl, data, httpOptions).pipe(
       tap((newuser: TokenResponse) => console.log('Login successful.')),
       catchError(handleError<TokenResponse>('facebookLogin'))
+    );
+  }
+
+  externalLogin(data): Observable<TokenResponse> {
+    return this.http.post<TokenResponse>(this.externalTokenUrl, data, httpOptions).pipe(
+      tap((newuser: TokenResponse) => console.log('Login successful.')),
+      catchError(handleError<TokenResponse>('externalLogin'))
     );
   }
   // try to refresh token

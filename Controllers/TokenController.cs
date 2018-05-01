@@ -154,8 +154,7 @@ namespace Athena.Controllers {
 
                     // Redirect the request to the external provider.
                     var redirectUrl = Url.Action (nameof (ExternalLoginCallback), "Token", new { returnUrl });
-                    var properties =
-                        SignInManager.ConfigureExternalAuthenticationProperties (provider, redirectUrl);
+                    var properties = SignInManager.ConfigureExternalAuthenticationProperties (provider, redirectUrl);
                     return Challenge (properties, provider);
                 default:
                     // provider not supported
